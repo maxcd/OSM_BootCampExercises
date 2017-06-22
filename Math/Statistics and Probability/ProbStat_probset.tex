@@ -117,23 +117,61 @@ Since $X_i \sim Bernoulli(p)\, for \,  i \in (1, 6242)$ with $E[x]=p=0.801$ and 
 			\item[(b)] $P(A  \cap B) = P(A)P(B)$, $P(A  \cap C) = P(A)P(C)$, $P(A  \cap B \cap C) = P(A)P(B)P(C)$, but $P(B  \cap C) \neq P(B)P(C)$. (Hint: You can let $\Omega$ be a set of eight equally likely points.)
 		\end{itemize}
 		
-\textbf{Solutions:} TODO\\
+\textbf{Solutions:}\\
+\begin{itemize}
+\item[(a)]  let $\Omega={1,2,3,4,5,6,7,8}$ with $P(x=x_i)=\frac{1}{8}\,  \forall \, x_i \in \Omega$ and with the events
+\begin{align*}
+A &= \lbrace 1, 2, 3, 4\rbrace \\
+ B&=\lbrace1, 2, 5, 6 \rbrace \\
+ C&=\lbrace 3, 4, 5, 6 \rbrace
+\end{align*}
+Such that $P(A)=P(B)=P(C)=\frac{4}{8}$ and the intersections $A  \cap B$, $A  \cap B$, $B \cap C $  each have two elements leading to  $P(A  \cap B) = P(A  \cap C) = =P(B \cap C )= P(A)P(C) = P(A)P(B) = P(B)P(C) = \frac{2}{8}$. Furthermore, $P(A  \cap B \cap C) = P(\emptyset) = 0 \neq P(A)P(B)P(C) = \frac{1}{8}$.
+$\emptyset$
+\item[(b)] for the same $\Omega$ as in (a) be 
+\begin{align*}
+A &= \lbrace 1, 2, 3, 4\rbrace \\
+ B&=\lbrace3, 4, 6, 7 \rbrace \\
+ C&=\lbrace 1, 2, 4, 5 \rbrace
+\end{align*}
+Such that $P(A)=P(B)=P(C)=\frac{4}{8}$ and the intersections $A  \cap B$ and $A  \cap B$  each have two elements leading to  $P(A  \cap B) = P(A  \cap C) = P(A)P(C) = P(A)P(B) = \frac{2}{8}$. Furthermore, $P(B  \cap C) = P(x=4) = \frac{1}{8}\neq P(B)P(C) = \frac{2}{8}$ and $P(A  \cap B \cap C) = P(4) = \frac{1}{8} = P(A)P(B)P(C)$.
+\end{itemize}
+
    	\item Prove that Benford's Law is, in fact, a well-defined discrete probability distribution.\\
 
-\textbf{Solutions:} TODO\\
+\textbf{Solutions:} 
+Benford's law holds for the sample space
+\begin{itemize}
+\item[1.] since $2 \geq (1+\frac{1}{d}) \geq (1+\frac{1}{9}) \, \forall \, d \in \Omega$ it follows that $0 \geq log_{10}(1+\frac{1}{d}) \geq 1$ holds.
+\item[2.] \begin{align*}
+&\sum_{d=1}^9 log_{10} \left(1+\frac{1}{d}\right )=log_{10}\left(\prod^9_{d=1}1+\frac{1}{d} \right)\\
+&=log_{10}(
+  2 \times
+1.5\times
+1.33\times
+1.25\times
+1.2\times
+1.167\times
+1.143\times
+1.125\times
+1.111\times)\\
+ &= log_{10}(10)=1
+\end{align*}
+\item[3.] for any events $d_i$ and $d_j$ with $i\neq j$, the intersection $d_i \cap d_j = \emptyset$ (i.e. they are pairwise disjoint) such that $P(d_i \cup d_j)=P(d_i)+P(d_j)$
+\end{itemize}
+
    	\item A person tosses a fair coin until a tail appears for the first time. If the tail appears on the $n$th flip, the person wins $2^n$ dollars. Let the random variable $X$ denote the player's winnings.
 		\begin{itemize}
 			\item[(a)] (St. Petersburg paradox) Show that $E[X]= + \infty$.
 			\item[(b)] Suppose the agent has log utility. Calculate $E[\ln X]$.\\
 			
-\textbf{Solutions:}\\
+
 Let $X$ be the payoff from the St. Petersburg game, than its expected value can be calculated by
 \begin{align*}
 E[X] = \sum_{k=1}^\infty \left(\frac{1}{2} \right)^k 2^{k} =1+ 1+ 1+ 1+ \,... = +\infty
 \end{align*}
 When the payoff of one game is weighted with the utility function $u(x)=ln(x)$, the expected utility is given by
 \begin{align*}
-E[u(X)] =& \sum_{k=1}^\infty \left(\frac{1}{2}^k \right) ln(2^{k}) =  ln(2) \sum_{k=1}^\infty \frac{k}{2^k} = ln(2) S \\ 
+E[u(X)] =& \sum_{k=1}^\infty \left(\frac{1}{2}\right)^k  ln(2^{k}) =  ln(2) \sum_{k=1}^\infty \frac{k}{2^k} = ln(2) S \\ 
 \end{align*} where
 \begin{align*}
 S=& \sum_{k=1}^\infty \frac{k}{2^k} = S -\frac{1}{2}S+ \frac{1}{2}S = S-\sum_{k=1}^\infty \frac{1}{2}\frac{k}{2^k}+ \frac{1}{2}S = S-\sum_{k=1}^\infty \frac{k}{2^{k+1}}+ \frac{1}{2}S \\
