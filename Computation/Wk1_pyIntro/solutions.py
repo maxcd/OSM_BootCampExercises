@@ -71,7 +71,7 @@ class ComplexNumber(object):
         imag = self.imag*other.real + other.imag*self.real
         return ComplexNumber(real, imag)
 
-    def __div__(self, other):
+    def __truediv__(self, other):
         if other.real == 0 and other.imag == 0:
             raise ValueError("Cannot divide by zero")
         bottom = (other.conjugate()*other*1.).real
@@ -86,41 +86,3 @@ class ComplexNumber(object):
                                                                 abs(self.imag))
 
 # Problem 5: Write code for the Set game here
-if __name__ == "__main__":
-
-    import box as bx
-    import random
-    import sys
-    import random
-
-    if len(sys.argv) != 2:
-        player = str(input("Please enter the player's name: "))
-    else:
-        player = sys.argv[1]
-
-    # initiate the numbers
-    remaining = list(range(1,10))
-
-    # one round of the box game
-    # todo reoll only on e dy
-    # make single inputs valid
-    print('Numbers left:', remaining)
-    valid = True
-
-    while valid == True:
-        roll = random.randint(1, 6) + random.randint(1, 6)
-        print("Roll:", roll)
-        valid = bx.isvalid(roll, remaining)
-        pl_input = input("Numbers to eliminate: ")
-        eliminate = bx.parse_input(pl_input, remaining)
-        while sum(eliminate) != roll:
-            print("Invalid Input")
-            pl_input = input("Numbers to eliminate: ")
-            eliminate = bx.parse_input(pl_input, remaining)
-        else:
-            remaining = [x for x in remaining if x not in eliminate]
-
-    if len(remaining) > 0:
-        print('Game Over! \n Score of the Player {0}: {1} points'.format(player, sum(remaining)))
-    else:
-        print("Score for player TA: 0 points \n Congratulations!! You shut the box!")
