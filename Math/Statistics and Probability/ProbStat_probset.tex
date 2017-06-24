@@ -87,10 +87,25 @@ and by De Morgans law we get
 =& 1 - P((\cup^n_{k=1} E_k)^c) \\
 =& P(\cap^n_{k=1} E_k)) 
 \end{align*} \\
-3.11 TODO\\
+3.11 \\
+We are interested in $P(s=crime|test\, +)$, given
+\begin{itemize}
+\item $P(s=crime) = \frac{1 }{250 \, million}$ because one person out of the total population committed the crime
+\item $P(test\, +) = \frac{1}{3 million}$
+\item I assume the test is 100\% reliable in the sense that $P(test\, +|s=crime)=1$.
+\end{itemize}
+Then the conditional probability 
+\begin{align*}
+P(s=crime|test\, +)=&\frac{P(test\, +|s=crime)P(s=crime)}{P(test\, +)}=\frac{1\times\frac{1}{250\, million}}{\frac{1}{3 \, million}} \\
+=&\frac{3}{250}
+\end{align*}
 3.12 \\
-In the first round the unconditional  probability of picking the door with the car out of the three door is is just $P(car) = \frac{1}{3}$. After having observed one goat the conditional probability of choosing the door with the car is $P(car|seen\, one\, goat) = \frac{1}{2}$ because one chooses randomly out of two possible choices.\\
-When there are 10 doors $P(car)=\frac{1}{10}$ and $P(car|seen\, 8\, goats) = \frac{1}{2}$ because, again, you are randomly choosing one out of two possible choices conditional on the 8 goats you have already observed.\\
+\begin{itemize}
+\item[i] not-shifting strategy. When one decides before the game starts on not to shift after Hall revals a goat the probability of winning is by randomly picking the winning door is simply $P(W) = \frac{1}{3}$.
+\item[ii] shifting strategy. Hall will always reveal a goat. So if one has picked the winning door in the first round one will loose  with probability $\frac{1}{3}\times 1$ because one will pick a goat by switching in the second round. In contrast, if one has chosen a goat door in in the first round and Hall reveals the second goat, there is only the winning door left so one wins with probability $\frac{2}{3}$  that is equal to the probability of choosing a goat in the first round.
+\item[iii] When there are 10 doors and Hall reveals 8 goats after one has picked a door in the first round it works the same. The probabilities of winning and loosing can be flipped around by following the switching strategy compared to  bot switching. $P(W)=\frac{1}{10}$ without switching. With the switching strategy one chooses a goat with probability $\frac{9}{10}$, then Hall reveals the remaining $8$ goats and one switches to the winning door. So  the probability of winning is $\frac{9}{10}$ in this case.
+\end{itemize}
+
 3.16\\
 \begin{align*}
 Var[X] =& E\left[ (X-\mu)^2 \right] = E\left[ X^2 - 2 X \mu + \mu^2 \right] \\
@@ -182,7 +197,12 @@ so,
 E[X] = 2ln(2)
 \end{align*}
 		\end{itemize}
-	\item (Siegel's paradox) Suppose the exchange rate between USD and CHF is 1:1. Both a U.S. investor and a Swiss investor believe that a year from now the exchange rate will be either $1.25:1$ or $1:1.25$, with each scenario having a probability of 0.5. Both investors want to maximize their wealth in their respective home currency (a year from now) by investing in a risk-free asset; the risk-free interest rates in the U.S. and in Switzerland are the same. Where should the two investors invest?
+	\item (Siegel's paradox) Suppose the exchange rate between USD and CHF is 1:1. Both a U.S. investor and a Swiss investor believe that a year from now the exchange rate will be either $1.25:1$ or $1:1.25$, with each scenario having a probability of 0.5. Both investors want to maximize their wealth in their respective home currency (a year from now) by investing in a risk-free asset; the risk-free interest rates in the U.S. and in Switzerland are the same. Where should the two investors invest?\\
+
+\textbf{Solution:}
+Assume an investor invests a unit either in the risk free asset in his home country or abroad. Assume, without loss of generality, that the risk free rate is zero, then $E^{home} = 1$. Whereas \begin{align*}
+E^{abroad}=0.5  (1.25 + \frac{1}{1.25} ) = 0.5 \times 2.05 = 1.025 > 1
+\end{align*} Depending on the risk aversion on the investor, the investor should invest should be willing to take the currency expected return is higher than for the home investment without currency risk.
 
 \item Consider a probability measure space with $\Omega = [0,1]$.
 		\begin{itemize}
@@ -199,7 +219,24 @@ E[X] = 2ln(2)
 			\item[(d)] $Cov[X,Y]=0$.
 			\item[(e)] If $X$ and $Y$ are normally distributed random variables with $Cov[X,Y]=0$, then $X$ and $Y$ 					must be dependent.
 		\end{itemize}
-
+\textbf{Solution:}
+\begin{itemize}
+			\item[(a)]Proof:\begin{align*}
+			P(y \leq Y) = P(y \leq XZ) =& \, P(Z=1)P(y \leq XZ| Z=1) + P(Z=-1)P(y \leq XZ| Z=-1) \\
+			=& \, 0.5P(y\leq X|Z=1) + 0.5P(y\leq -X|Z=-1)  \\
+			=& \, 0.5 P(y \leq X) + 0.5P(-y\geq X) \\
+			=& \, P(y \leq X)  \quad (by \, symmetry\,  of\,  X)
+			\end{align*}
+			and since $X \sim N(0,1)$ also $Y \sim (0,1)$.
+			\item[(b)] TODO
+			\item[(c)]Proof: $E[XY]=E[XXZ]=E[X^2Z]$ and by independence of $X$ and $Y$ we have $E[X^2Z]=E[X^2] \underset{=0}{E[Z]}=E[X^2]$ and because $E[X]=0$ we get $E[X^2]=Var[X]=1 \neq 0. \quad $
+			\item[(d)] \begin{align*}
+			Cov[XY]=& \, E\left[ (X-E[X])(Y-E[Y]) \right] \\
+			=& \, E[XY]  \\
+			=& \, E[X]E[Y]
+			\end{align*}
+			\item[(e)] 
+\end{itemize}
 	\item Let the random variables $X_i$, $i=1,2,\ldots,n,$ be i.i.d.\ having the uniform distribution on $[0,1]$, denoted $X_i \sim U[0,1]$. Consider the random variables $m=\min\{X_1,X_2,\ldots,X_n\}$ and $M=\max\{X_1,X_2,\ldots,X_n\}$. For both random variables $m$ and $M$, derive their respective cumulative distribution (cdf), probability density function (pdf), and expected value.
 
 	\item You want to simulate a dynamic economy (e.g., an OLG model) with two possible states in each period, a ``good'' state and a ``bad'' state. In each period, the probability of both shocks is $\frac{1}{2}$. Across periods the shocks are independent. Answer the following questions using the Central Limit Theorem and the Chebyshev Inequality.
@@ -207,8 +244,39 @@ E[X] = 2ln(2)
 			\item[(a)] What is the probability that the number of good states over 1000 periods differs from 500 by at most 2\%?
 			\item[(b)] Over how many periods do you need to simulate the economy to have a probability of at least 0.99 that the proportion of good states differs from $\frac{1}{2}$ by less than 1\%?
 		\end{itemize}
+\textbf{Solution:}
+\begin{itemize}
+\item[(a)] \begin{align*} 
+X_k=&state, \, X \sim Bernoulli(0.5)\\
+\mu_X&=0.5, \, \sigma_X=0.5\\
+S =& \sum^{1000}_{k=1} X_k, \,
+S \sim N(500, 250)
+\end{align*}
+We are looking for $P(490 \leq S)+P(S \geq 510)= P(490 \leq S) +(1-P(S \leq 510) = 2P(S \leq 490) \approx 0,968
+$ 
 
+
+\item[(b)] using the weak law of large numbers we have \begin{align*}
+&P\left(|\frac{\sum^n X_k}{n} -\mu| \geq \varepsilon \right)  &&\leq \frac{\sigma^2}{n \varepsilon^2} \\
+\Leftrightarrow 0.99 = \quad &1-P\left(|\frac{\sum^n X_k}{n} -\mu| \geq \varepsilon \right) &&\geq 1 - \frac{\sigma^2}{n \varepsilon^2} \\
+\rightarrow \quad &n=\frac{\sigma^2}{0.01\varepsilon^2}
+\end{align*}
+and with $\varepsilon= 0.5 \times 0.01= 0.005$ we get
+\begin{align*}
+n = \frac{100}{4 \times 0.005^2} = \frac{100}{0.0001} = 1000000
+\end{align*}
+\end{itemize}
 	\item If $E[X]<0$ and $\theta \neq 0$ is such that $E[e^{\theta X}]=1$, prove that $\theta > 0$.
+	
+\textbf{Solution:}\\
+The function $f(x) = e^{\theta x}$ is convex. Jensen's inequality states that 
+\begin{align*}
+E[f(X)] \geq& \, f(E[X]) \\ 
+E[e^{\theta X}]\geq& \,  e^{\theta E[X]} \\
+1\geq& \,  e^{\theta E[X]}\\
+ 0 > & \,  \theta E[X] \\
+0 < \theta
+\end{align*}
 \end{enumerate}
 
 \vspace{25mm}

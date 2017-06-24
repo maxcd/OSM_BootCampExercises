@@ -86,3 +86,15 @@ class ComplexNumber(object):
                                                                 abs(self.imag))
 
 # Problem 5: Write code for the Set game here
+'''
+    Each car has four attributes:
+        - color:  red, green, purple (pos1)
+        - shape: diamond, oval, sqiggly  (pos2)
+        - quantity: one, two, or three (pos3)
+        - pattern: solid, stripped, outline (pos4)
+
+    of which every one can have one of three values
+    each being represented by an integer between 1 and 3
+    at the corresponding position
+
+'''
