@@ -9,11 +9,13 @@ import scipy.optimize as opt
 # define arameters
 ## households parameters
 ### discount factor
-beta = 0.442
+beta_pa = 0.96
+beta = beta_pa ** 20
 ### risk aversion coefficient
 sigma = 3.0
 ### depreciation rate per period
-delta = 0.6415
+delta_pa = 0.05
+delta = 1 - (1 - 0.05) ** 20
 
 ## aggregate labor suppöy
 n_1 = 1.0
@@ -195,8 +197,7 @@ def euler_errs_tpi(b_coh, *args):
 # get b2 and b3 of one cohort
 # guess T_max
 T_max = 30
-m = 5
-periods = T_max + m
+
 r_ss_5 = np.repeat(ss_list[2], 5)
 w_ss_5 = np.repeat(ss_list[3], 5)
 # L = get_L(nvec)
@@ -216,82 +217,93 @@ w_ss_5 = np.repeat(ss_list[3], 5)
 #bvec[1,1] = b_3_2.x
 #print(bvec)
 
+def tpi(b_ss, K_ss, T_max, max_iters, eps_tol, xi, *args):
+    beta, A, alpha, sigma, nvec, delta = args
+
+    eps_list = []
+    repeat = True
+    iters = 1
+    m = 5
+    periods = T_max + m
+    while repeat == True:
+
+        if iters == 1:
+            # initiate Kvec for the first time
+            b_2_1 = 0.8 * b_ss[0]
+            b_3_1 = 1.1 * b_ss[1]
+            K_init = b_2_1 + b_3_1
+            Kvec = np.linspace(K_init, K_ss, periods)
+            L = get_L(nvec)
+        # execute this always
+        rvec = get_r(alpha, A, L, Kvec, delta)
+        rvec = np.concatenate((rvec, r_ss_5))
+
+        wvec = get_w(alpha, A, L, Kvec)
+        wvec = np.concatenate((wvec, w_ss_5))
+        b23args = b_2_1, wvec, rvec, nvec, beta, sigma
+        b_3_2 = opt.root(b23_errs, b_3_1, args=(b23args))
+
+        # initiate bvec
+        bvec = np.zeros([periods, 2])
+
+        bvec[0,:] = b_2_1, b_3_1
+        bvec[1,1] = b_3_2.x
+
+        try:
+            for i in range(periods-2):
+                b_coh = np.array([bvec[i, 0], bvec[i+1, 1]])
+                w_coh = wvec[i:i+3]
+                r_coh = rvec[i:i+2]
+
+                #errs = euler_errs_tpi(b_coh, beta, A, alpha, sigma, nvec, delta, w_coh, r_coh)
+                coh_args = beta, A, alpha, sigma, nvec, delta, w_coh, r_coh
+                res = opt.root(euler_errs_tpi, b_coh, args=(coh_args))
+
+                b_cohi1 = res.x
+                bvec[i+1,0], bvec[i+2, 1] = b_cohi1[0], b_cohi1[1]
+
+        except ValueError as e:
+            print('stopped at iteration {}'.format(i))
+
+        K_i_prime = bvec.sum(axis=1)[:30]
+        K_i = Kvec[:30]
+
+        deviation = K_i_prime - K_i
+        eps = np.linalg.norm(deviation)
+        eps_list.append(eps)
+        if eps <= eps_tol:
+            print('''Convergence achieved after {} iterations'''.format({iters}))
+            repeat = False
+        else:
+            Kvec = xi * K_i_prime + (1 - xi) * K_i
+
+        iters += 1
+        if iters == max_iters:
+            print('maximum itterations reached')
+            break
+
+    return bvec
+
 xi = 0.2
-tolerance = 1e-5
 max_iters = 100
-eps = 1
-eps_list = []
-repeat = True
-iters = 1
-while repeat == True:
+K_ss = ss_list[0]
 
-    if iters == 1:
-        # initiate Kvec for the first time
-        b_2_1 = 0.8 * b2_ss
-        b_3_1 = 1.1 * b3_ss
-        K_ss = ss_list[0]
-        K_init = b_2_1 + b_3_1
-        Kvec = np.linspace(K_init, K_ss, periods)
-        L = get_L(nvec)
-    # execute this always
-    rvec = get_r(alpha, A, L, Kvec, delta)
-    rvec = np.concatenate((rvec, r_ss_5))
-    wvec = get_w(alpha, A, L, Kvec)
-    wvec = np.concatenate((wvec, w_ss_5))
-    b23args = b_2_1, wvec, rvec, nvec, beta, sigma
-    b_3_2 = opt.root(b23_errs, b_3_1, args=(b23args))
-
-    # initiate bvec
-    bvec = np.zeros([periods, 2])
-
-    bvec[0,:] = b_2_1, b_3_1
-    bvec[1,1] = b_3_2.x
-    try:
-        for i in range(periods-2):
-            b_coh = np.array([bvec[i, 0], bvec[i+1, 1]])
-            w_coh = wvec[i:i+3]
-            r_coh = rvec[i:i+2]
-
-            #errs = euler_errs_tpi(b_coh, beta, A, alpha, sigma, nvec, delta, w_coh, r_coh)
-            coh_args = beta, A, alpha, sigma, nvec, delta, w_coh, r_coh
-            res = opt.root(euler_errs_tpi, b_coh, args=(coh_args))
-
-            b_cohi1 = res.x
-            bvec[i+1,0], bvec[i+2, 1] = b_cohi1[0], b_cohi1[1]
-
-    except ValueError as e:
-        print('stopped at iteration {}'.format(i))
-
-    K_i_prime = bvec.sum(axis=1)[:30]
-    K_i = Kvec[:30]
-
-    deviation = K_i_prime - K_i
-    eps = np.linalg.norm(deviation)
-    eps_list.append(eps)
-    if eps <= tolerance:
-        print('''Convergence achieved after {} iterations'''.format({iters}))
-        repeat = False
-    else:
-        Kvec = xi * K_i_prime + (1 - xi) * K_i
-
-    iters += 1
-    if iters == max_iters:
-        print('maximum itterations reached')
-        break
+bpath = tpi(b_ss, K_ss, T_max, max_iters, 1e-5,
+            0.2, beta, A, alpha, sigma, nvec, delta)
 
 # Excersise 5.4
 ## plot convergence of the capital stock
-import matplotlib.pyplot as plt
-K_path = bvec[:8].sum(axis=1)
+Kpath = bpath.sum(axis=1)
+dev = Kpath - K_ss
+T = np.where(dev <= 0.0001)
+T = T[0].min()
 
+print('''\nIt takes only {} period to get within 0.0001 of the Steady State.
+      ...if my time path iteration is correct.'''.format(T))
+
+
+import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 t = np.arange(1, 9)
-ax.plot(t, K_path)
-ax.set_ylim(0.065, 0.085)
+ax.plot(t, Kpath[:8])
 plt.show()
-
-dev = K_path - K_ss
-T = np.where(dev <= 0.0001)
-T = T.min()
-
-print('it takes only one period.\n ... if my time path iteration is correct.')
