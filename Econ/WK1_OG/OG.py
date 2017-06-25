@@ -142,7 +142,6 @@ exogenous labor supply to some extent
 # Excersise 5.3: TPI
 '''
 
-
 # getting the savings of the middle aged cohoret when they are old
 # check again for algebra errors
 # def get_b32(b_2_1, wvec, rvec, nvec, beta, sigma):
@@ -194,28 +193,11 @@ def euler_errs_tpi(b_coh, *args):
 
     return np.array([err_1, err_2])
 
-# get b2 and b3 of one cohort
 # guess T_max
 T_max = 30
 
 r_ss_5 = np.repeat(ss_list[2], 5)
 w_ss_5 = np.repeat(ss_list[3], 5)
-# L = get_L(nvec)
-# K_init =b_2_1 + b_3_1
-# Kvec = np.linspace(K_init, K_ss, periods)
-# rvec = get_r(alpha, A, L, Kvec, delta)
-# rvec = np.concatenate((rvec, r_ss))
-# wvec = get_w(alpha, A, L, Kvec)
-# wvec = np.concatenate((wvec, w_ss))
-# b23args = b_2_1, wvec, rvec, nvec, beta, sigma
-# b_3_2 = opt.root(b23_errs, b_3_1, args=(b23args))
-
-# initiate bvec
-#bvec = np.zeros([periods, 2])
-
-#bvec[0,:] = b_2_1, b_3_1
-#bvec[1,1] = b_3_2.x
-#print(bvec)
 
 def tpi(b_ss, K_ss, T_max, max_iters, eps_tol, xi, *args):
     beta, A, alpha, sigma, nvec, delta = args
