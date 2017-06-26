@@ -92,9 +92,10 @@ b2_init = 0.05
 b3_init = 0.05
 b_init = np.array([b2_init, b3_init])
 
-# putthe parameters in a tuple
+# put the parameters in a tuple
 params = (beta, A, alpha, sigma, nvec, delta)
 errs_init = euler_errs(b_init, beta, A, alpha, sigma, nvec, delta)
+
 # compute steady state
 ss_results = opt.root(euler_errs, b_init, args=(params))
 print(ss_results)
@@ -159,7 +160,7 @@ def b23_errs(b32_init, *args):
     b_2_1, wvec, rvec, nvec, beta, sigma = args
     n1, n2, n3 = nvec
     w_1, w_2 = wvec[0], wvec[1]
-    r_1, r_2 = rvec[0], rvec[1]
+    r_1, r_2 = rvec[1], rvec[2]
 
     c2 = get_c_2(n2, w_1, r_1, b_2_1, b32_init)
     c3 = get_c_3(n3, w_2, r_2, b32_init)
@@ -235,7 +236,7 @@ def tpi(b_ss, K_ss, T_max, max_iters, eps_tol, xi, *args):
             for i in range(periods-2):
                 b_coh = np.array([bvec[i, 0], bvec[i+1, 1]])
                 w_coh = wvec[i:i+3]
-                r_coh = rvec[i:i+2]
+                r_coh = rvec[i+1:i+3]
 
                 #errs = euler_errs_tpi(b_coh, beta, A, alpha, sigma, nvec, delta, w_coh, r_coh)
                 coh_args = beta, A, alpha, sigma, nvec, delta, w_coh, r_coh
@@ -254,7 +255,7 @@ def tpi(b_ss, K_ss, T_max, max_iters, eps_tol, xi, *args):
         eps = np.linalg.norm(deviation)
         eps_list.append(eps)
         if eps <= eps_tol:
-            print('''Convergence achieved after {} iterations'''.format({iters}))
+            print('Convergence achieved after {} iterations'.format({iters}))
             repeat = False
         else:
             Kvec = xi * K_i_prime + (1 - xi) * K_i
@@ -266,19 +267,18 @@ def tpi(b_ss, K_ss, T_max, max_iters, eps_tol, xi, *args):
 
     return bvec
 
-xi = 0.2
 max_iters = 100
 K_ss = ss_list[0]
 
-bpath = tpi(b_ss, K_ss, T_max, max_iters, 1e-5,
-            0.2, beta, A, alpha, sigma, nvec, delta)
+bpath = tpi(b_ss, K_ss, T_max, max_iters, 1e-9,
+            0.5, beta, A, alpha, sigma, nvec, delta)
 
 # Excersise 5.4
 ## plot convergence of the capital stock
 Kpath = bpath.sum(axis=1)
 dev = Kpath - K_ss
-T = np.where(dev <= 0.0001)
-T = T[0].min()
+T = np.where(dev <= 1e-4)
+T = T[0][0]
 
 print('''\nIt takes only {} period to get within 0.0001 of the Steady State.
       ...if my time path iteration is correct.'''.format(T))
@@ -286,6 +286,11 @@ print('''\nIt takes only {} period to get within 0.0001 of the Steady State.
 
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
-t = np.arange(1, 9)
-ax.plot(t, Kpath[:8])
+t = np.arange(1, 15)
+ax.plot(t, Kpath[:14], label='capital stock')
+ax.plot(t, np.repeat(K_ss, 14), '--', color='k',
+        label='steady state', alpha=0.3)
+plt.xlabel('Period')
+plt.title('Transition to Steady State')
+plt.legend()
 plt.show()
