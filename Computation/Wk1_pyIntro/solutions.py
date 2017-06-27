@@ -98,3 +98,53 @@ class ComplexNumber(object):
     at the corresponding position
 
 '''
+
+def iscard(card):
+    iscard = True
+    if len(card) != 4:
+        iscard = False
+    for i in range(0, len(card)):
+        if int(card[i]) < 0 or int(card[i])>2:
+            iscard = False
+    return iscard
+
+def isset(card1, card2, card3):
+    def allsame(a,b,c):
+        return a==b and a==c
+    def alldifferent(a,b,c):
+        return len(set((a,b,c)))==3
+    attr = [False, False, False, False]
+    for i in range(0,min(len(card1), len(card2), len(card3))):
+        if allsame(card1[i],card2[i],card3[i]) == True or alldifferent(card1[i],card2[i],card3[i]) == True:
+            attr[i] = True
+    if attr == [True, True, True, True]:
+        isset = True
+    else:
+        isset = False
+    return isset
+
+def count_sets(filename):
+    if os.path.exists(os.path.join(os.getcwd(),'hands', filename)) == False:
+        raise ValueError("File does not exist")
+
+    with open(os.path.join(os.getcwd(),'hands', filename)) as myfile:
+        cards = myfile.read().splitlines()
+        if len(cards) != 12:
+            raise ValueError("Should have 12 cards")
+
+        if all(iscard(card)==True for card in cards)==False:
+            raise ValueError("Input is invalid")
+
+        for i in range(0, 12):
+            for j in range(i+1, 12):
+                if cards[i] == cards[j]:
+                    raise ValueError("Should not have duplicate cards")
+
+        sets = 0
+        for i in range(0, 12):
+            for j in range(i+1, 12):
+                for k in range(j+1,12):
+                    if isset(cards[i], cards[j], cards[k]) == True:
+                        sets = sets + 1
+
+    return sets

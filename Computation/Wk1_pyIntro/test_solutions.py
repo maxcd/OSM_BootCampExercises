@@ -96,3 +96,40 @@ def test_complex_conjugate(set_up_complex_nums):
     assert number_1.conjugate() == soln.ComplexNumber(1, -2)
 
 # Problem 4: Write test cases for the Set game.
+
+def test_iscard():
+    assert soln.iscard("0123")==False
+def test_isset():
+    assert soln.isset("0111" ,"01111","01111")==True
+@pytest.fixture
+def set_up_sets():
+    set1 = "set1.txt"
+    set2 = "set2.txt"
+    set3 = "set3.txt"
+    set4 = "set4.txt"
+    set5 = "wrongfile.txt"
+    return set1, set2, set3, set4, set5
+
+def test_set(set_up_sets):
+    set1, set2, set3, set4, set5 = set_up_sets
+    assert soln.count_sets(set1) == 6
+
+    with pytest.raises(Exception) as excinfo:
+        soln.count_sets(set2)
+    assert excinfo.typename == 'ValueError'
+    assert excinfo.value.args[0] == "Should have 12 cards"
+
+    with pytest.raises(Exception) as excinfo:
+        soln.count_sets(set3)
+    assert excinfo.typename == 'ValueError'
+    assert excinfo.value.args[0] == "Should not have duplicate cards"
+
+    with pytest.raises(Exception) as excinfo:
+        soln.count_sets(set4)
+    assert excinfo.typename == 'ValueError'
+    assert excinfo.value.args[0] == "Input is invalid"
+
+    with pytest.raises(Exception) as excinfo:
+        soln.count_sets(set5)
+    assert excinfo.typename == 'ValueError'
+    assert excinfo.value.args[0] == "File does not exist"

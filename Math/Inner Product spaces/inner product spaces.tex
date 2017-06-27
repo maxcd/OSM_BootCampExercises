@@ -1,0 +1,158 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{\footnotesize\textsl{OSM Lab, Summer 2017, Math PS \#2}}
+\cfoot{}
+\rfoot{\footnotesize\textsl{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue,citecolor=red}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{derivation}{Derivation} % Number derivations on their own
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition} % Number propositions on their own
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+%\numberwithin{equation}{section}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\newcommand\boldline{\arrayrulewidth{1pt}\hline}
+
+\begin{document}
+
+\begin{flushleft}
+   \textbf{\large{Math, Problem Set \#2, Inner Prouct Spaces}} \\[5pt] Zachery \\[5pt]
+   Due Wednesday, July 5 at 8:00am
+\end{flushleft}
+\textbf{Homework:} 1, 2, 3, 8, 9, 10, 11, 16, 17, 23, 24, 26, 28, 29, 30, 37, 38, 39, 40, 44, 45, 46,
+47, 48, 50 at the end of Chapter 3 of Humpherys et al. (2017)
+\begin{enumerate}
+\item[3.1)] 
+\begin{itemize}
+\item[i)]
+\begin{align*}
+&\frac{1}{4} \left( ||x+y||^2 - ||x-y||^2 \right) \\
+=&\frac{1}{4} \left(||x||^2  +||y||^2 + 2||x||\,||y||\,cos(\theta) - [||x||^2  +||y||^2 - 2||x||\,||y|| \, cos(\theta) ] \right) \\
+=& \frac{1}{4} \left( 4 ||x||\, ||y|| \, cos(\theta) \right) \quad by \,  definition \, of \, cos(\theta)\\
+=&||x||\, ||y|| \, \frac{\langle x,y\rangle}{||x||\, ||y|| \,} \\
+=& \langle x ,y\rangle
+\end{align*}
+\item[ii)] 
+\begin{align*}
+&\frac{1}{2} \left( ||x+y||^2 + ||x-y||^2 \right) \\
+=& \frac{1}{2} \left( ||x||^2 \, ||y||^2 + 2||x||\,||y||\,cos(\theta)  +    ||x||^2  +||y||^2 - 2||x||\,||y|| \, cos(\theta) \right) \\
+=& \frac{1}{2} 2 \left( ||x||^2+||y||^2  \right) \\
+=& ||x||^2+||y||^2 
+\end{align*}
+\end{itemize}
+\item[3.2)]
+\begin{align*}
+&\frac{1}{4} \left( ||x+y||^2 - ||x-y||^2  + i||x-iy||^2 - i||x+iy||^2 \right) \\
+&\frac{1}{4} \left( ||x+y||^2 - ||x-y||^2  - i(||x+iy||^2 - ||x-iy||^2  )\right) \\
+=& \frac{1}{4} ( ||x||^2 +\langle x, y \rangle +\langle  y ,x
+\rangle +||y||^2 \\ 
+\quad & - ||x||^2 +\langle x, y \rangle +\langle  y ,x\rangle -||y||^2 \\
+\quad &-i( ||x||^2 +\langle x, iy \rangle +\langle  iy ,x
+\rangle +||y||^2 \\ 
+\quad & - ||x||^2 +\langle x, iy \rangle +\langle  iy ,x\rangle -||y||^2 ))
+\\
+=& \frac{1}{4}( 2 \langle x, y \rangle + 2\langle y, x \rangle \\
+\quad &-i(2i\langle x, y \rangle  - 2i\langle y,x \rangle ) \\
+=& \frac{1}{4}(2 \langle x, y \rangle + 2\langle y, x \rangle \\
+\quad & + 2\langle x, y \rangle  - 2\langle y,x \rangle) \\
+=& \frac{1}{4}(4\langle x, y \rangle) = \langle x, y \rangle
+\end{align*}
+\item[3.3)] \begin{eqnarray*}\theta = cos^{-1} \left( \frac{\langle f, g \rangle}{||f|| \, ||g||} \right) \end{eqnarray*}
+for i) and ii) we have \begin{eqnarray*}
+\langle f, g \rangle = \int_o^1 x^6 \, dx = \frac{1}{7}\end{eqnarray*}
+and for i) we further have:
+\begin{align*}
+||g|| =&  ||x||= \sqrt{\langle g, g \rangle} = \left( \frac{1}{3} \right)^\frac{1}{2}\\
+||f|| =&= ||x^5||  \sqrt{\langle f, f \rangle} =\left( \frac{1}{11} \right)^\frac{1}{2}\\
+\theta =& \cos^{-1}\left( \frac{\sqrt{33}}{7} \right)
+\end{align*}
+and for ii)
+\begin{align*}
+||g|| =&  ||x^2||= \sqrt{\langle g, g \rangle} = \left( \frac{1}{5} \right)^\frac{1}{2}\\
+||f|| =& =||x^4||= \sqrt{\langle f, f \rangle} =\left( \frac{1}{9} \right)^\frac{1}{2}\\
+\theta =& \cos^{-1}\left( \frac{\sqrt{45}}{7} \right)
+\end{align*}
+\item[3.8)]
+\begin{itemize}
+\item[i)]\begin{align*}
+\langle cos^2(t) \rangle = \frac{1}{\pi} \int_{-\pi}^{\pi} cos^2(t)dt =& \frac{1}{\pi} \int_{-\pi}^{\pi} \frac{1+cos(2t)}{2} dt = \frac{1}{2\pi} \left( \int_{-\pi}^{\pi}1dt + \int_{-\pi}^{\pi} cos(t)dt \right)\\
+=& \frac{1}{2\pi} \left[ t \right]_{-\pi}^{\pi} = \frac{1}{2\pi} [\pi + \pi] = 1 \\
+\langle cos^2(2t) \rangle = \frac{1}{\pi} \int_{-\pi}^{\pi} cos^2(2t)dt =& \frac{1}{\pi} \int_{-\pi}^{\pi} \frac{1+cos(4t)}{2} dt  \quad and \, because \, cos(4t)=cos(2t)\\
+=&\frac{1}{2\pi} \left( \int_{-\pi}^{\pi}1dt + \int_{-\pi}^{\pi} cos(t)dt \right)\\
+=& \frac{1}{2\pi} \left[ t \right]_{-\pi}^{\pi} = \frac{1}{2\pi} [\pi + \pi] = 1 \\
+\langle sin^2(t) \rangle = \frac{1}{\pi} \int_{-\pi}^{\pi} sin^2(t)dt =& \frac{1}{\pi} \int_{-\pi}^{\pi} \frac{1-cos(2t)}{2} dt = \frac{1}{2\pi} \left( \int_{-\pi}^{\pi}1\, dt - \int_{-\pi}^{\pi} cos(t)dt \right)\\
+=& \frac{1}{2\pi} \left[ t \right]_{-\pi}^{\pi} = \frac{1}{2\pi} [\pi + \pi] = 1 \\
+\langle sin^2(2t) \rangle = \frac{1}{\pi} \int_{-\pi}^{\pi} sin^2(2t)dt =& \frac{1}{\pi} \int_{-\pi}^{\pi} \frac{1-cos(4t)}{2} dt  \quad and \, because \, sin(4t)=cos(2t)\\
+=&\frac{1}{2\pi} \left( \int_{-\pi}^{\pi}1dt + \int_{-\pi}^{\pi} cos(t)dt \right)\\
+=& \frac{1}{2\pi} \left[ t \right]_{-\pi}^{\pi} = \frac{1}{2\pi} [\pi + \pi] = 1 \\
+\end{align*}
+\begin{align*}
+\langle cos(t,)sin(t) \rangle  =& \int_{-\pi}^{\pi}cos(t)sin(t) dt = 0 \\
+\langle cos(t), cos(2t)\rangle  =& \int_{-\pi}^{\pi}cos(t) sin(2t) dt = 0 \\
+\langle cos(t), sin(2t) \rangle =& \int_{-\pi}^{\pi} cos(t) sin(2t) dt = 0 \\
+\langle sin(t) ,cos(2t)\rangle =& \int_{-\pi}^{\pi}sin(t) cos(2t) dt = 0 \\
+\langle sin(t) ,sin(2t)\rangle =& \int_{-\pi}^{\pi}sin(t) cos(2t) dt = 0 \\
+\langle cos(2t),sin(2t) \rangle  =& \int_{-\pi}^{\pi}cos(2t) sin(2t) dt = 0 \\
+\end{align*}
+\item[ii)]
+\begin{align*}
+||t|| = \langle t,t \rangle^{0.5}= \left( \frac{1}{\pi}\int_{-\pi}^{\pi} t^2 \, dt \right)^{0.5}= \left(\frac{1}{\pi} \times \frac{2 \pi^3}{3} \right)^{0.5} = \sqrt{\frac{2}{3}} \pi
+\end{align*}
+\item[iii)]
+\begin{align*}
+proj_X(cos(3t)) =& \sum_{i=1}^4 \langle x_i, cos(3t)\rangle x_i \\
+ =& \langle cos(t), cos(3t)\rangle cos(t) + \langle sin(t), cos(3t)\rangle sin(t) \\
+\quad & + \langle cos(2t), cos(3t)\rangle cos(2t) + \langle sin(2t), cos(3t)\rangle sin(2t) \\
+=& 0 + 0 +0 +0 = 0
+\end{align*}
+\item[iv)]
+\begin{align*}
+proj_X(t)=& \sum_{i=1}^4 \langle x_i, t \rangle x_i\\
+ =& \frac{1}{\pi}\int_{-\pi}^{\pi} t\, cos(t)\, dt\, cos(t) +\frac{1}{\pi} \int_{-\pi}^{\pi} t\, sin(t)\, dt \,sin(t) \\
+ \quad &+ \frac{1}{\pi}\int_{-\pi}^{\pi} t \,cos(2t)\, dt\, cos(2t)  + \frac{1}{\pi}\int_{-\pi}^{\pi} t\, sin(2t)\, dt\, sin(2t) \\
+ =& \, 0 + \frac{2\pi}{\pi} sin(t) + 0 + -\frac{\pi}{\pi} sin(2t)\\
+ =&\, 2sin(t)-sin(2t)
+\end{align*}
+\end{itemize}
+\end{enumerate}
+
+
+\end{document}
