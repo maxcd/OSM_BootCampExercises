@@ -54,7 +54,7 @@
 \begin{document}
 
 \begin{flushleft}
-   \textbf{\large{Math, Problem Set \#2, Inner Prouct Spaces}} \\[5pt] Zachery \\[5pt]
+   \textbf{\large{Math, Problem Set \#2, Inner Prouct Spaces}} \\[5pt] Instructor: Zachary Boyd \\[5pt]
    Due Wednesday, July 5 at 8:00am
 \end{flushleft}
 \textbf{Homework:} 1, 2, 3, 8, 9, 10, 11, 16, 17, 23, 24, 26, 28, 29, 30, 37, 38, 39, 40, 44, 45, 46,
@@ -125,12 +125,12 @@ and for ii)
 =& \frac{1}{2\pi} \left[ t \right]_{-\pi}^{\pi} = \frac{1}{2\pi} [\pi + \pi] = 1 \\
 \end{align*}
 \begin{align*}
-\langle cos(t,)sin(t) \rangle  =& \int_{-\pi}^{\pi}cos(t)sin(t) dt = 0 \\
-\langle cos(t), cos(2t)\rangle  =& \int_{-\pi}^{\pi}cos(t) sin(2t) dt = 0 \\
-\langle cos(t), sin(2t) \rangle =& \int_{-\pi}^{\pi} cos(t) sin(2t) dt = 0 \\
-\langle sin(t) ,cos(2t)\rangle =& \int_{-\pi}^{\pi}sin(t) cos(2t) dt = 0 \\
-\langle sin(t) ,sin(2t)\rangle =& \int_{-\pi}^{\pi}sin(t) cos(2t) dt = 0 \\
-\langle cos(2t),sin(2t) \rangle  =& \int_{-\pi}^{\pi}cos(2t) sin(2t) dt = 0 \\
+\langle cos(t,)sin(t) \rangle  =&\frac{1}{2\pi}  \int_{-\pi}^{\pi}cos(t)sin(t) dt = 0 \\
+\langle cos(t), cos(2t)\rangle  =&\frac{1}{2\pi}  \int_{-\pi}^{\pi}cos(t) sin(2t) dt = 0 \\
+\langle cos(t), sin(2t) \rangle =&\frac{1}{2\pi}  \int_{-\pi}^{\pi} cos(t) sin(2t) dt = 0 \\
+\langle sin(t) ,cos(2t)\rangle =&\frac{1}{2\pi}  \int_{-\pi}^{\pi}sin(t) cos(2t) dt = 0 \\
+\langle sin(t) ,sin(2t)\rangle =&\frac{1}{2\pi}  \int_{-\pi}^{\pi}sin(t) cos(2t) dt = 0 \\
+\langle cos(2t),sin(2t) \rangle  =&\frac{1}{2\pi}  \int_{-\pi}^{\pi}cos(2t) sin(2t) dt = 0 \\
 \end{align*}
 \item[ii)]
 \begin{align*}
@@ -152,7 +152,242 @@ proj_X(t)=& \sum_{i=1}^4 \langle x_i, t \rangle x_i\\
  =&\, 2sin(t)-sin(2t)
 \end{align*}
 \end{itemize}
-\end{enumerate}
+\item[3.9)]If $R_{\theta}$ is an orthonormal transformation it holds that $\langle R_{\theta}x, R_{\theta}y \rangle = \langle x, y\rangle = x'y $.
+Here we have: \begin{align*}
+\langle R_{\theta}x, R_{\theta}y \rangle =&( R_{\theta}x)' R_{\theta}y=x'R_{\theta}' R_{\theta}y \\
+=& x'\begin{pmatrix}
+cos(\theta)&sin(\theta)\\-sin(\theta)&cos(\theta)
+\end{pmatrix}\begin{pmatrix}
+cos(\theta)&-sin(\theta)\\sin(\theta)&cos(\theta)
+\end{pmatrix}y \\
+=&x'\begin{pmatrix}
+cos(\theta)^2+sin(\theta)^2& cos(\theta)sin(\theta) - cos(\theta)sin(\theta)\\
+cos(\theta)sin(\theta)- cos(\theta)sin(\theta)&sin(\theta)^2 +cos(\theta)^2
+\end{pmatrix}y\\
+ =& x'\, I_2\, y=x'y
+\end{align*} 
 
+\item[3.10)]
+\begin{itemize}
+\item[i)] \begin{align*}
+\langle Qx, Qy\rangle &= \langle x, y\rangle\\
+(xQ)^HQy &=  x'y\\
+x^HQ^HQy &= x'y\\
+Q^HQy &=y\\
+Q^HQ&= I\\
+\end{align*}
+\item[ii)] Be Q an orthonormal matrix as in i) then $ ||Qx|| = \sqrt{\langle} Qx, Qx \rangle  = \sqrt{\langle} x, x \rangle = ||x||$ 
+\item[iii)] $\langle Q^{-1}x,Q^{-1}y  \rangle = ( Q^{-1}x)^HQ^{-1}y = x^H(Q^{-1})^HQ^{-1}y =x^H(Q^{-1}Q^{-1})^Hy = x^H(QQ^H)^-1y = x^H(Q^HQ)y=x^Hy  $
+\item[iv)] Be $Q = \begin{pmatrix}
+q_1 & q_2& ... & q_n\end{pmatrix}$ is an  $(n\times n)$ matrix with orthonormal, that is $ ||q_k|| = 1 = \langle q_k, q_k \rangle$ and $\langle q_k, q_j \rangle =0 \, \forall k \neq j $ columns $q_1$ to $q_n$ then we know from i) that 
+\begin{align*}
+Q^HQ =& I_n \\
+\begin{pmatrix}
+q_1^H \\ q_2^H\\ \vdots \\ q_n^H
+\end{pmatrix}\begin{pmatrix}
+q_1 & q_2&\cdots & q_n\end{pmatrix}=I_n\\
+\begin{pmatrix}
+q_1^H q_1 & q_1^H q_2 & \cdots& q_1^H q_n \\ 
+q_2^H q_1 & q_2H q_2 & \cdots &q_2^H q_n\\ 
+\vdots & \vdots& & \vdots \\
+q_n^Hq_1 & q_n^Hq_2& \cdots& q_n^H q_n 
+\end{pmatrix} =& \begin{pmatrix}
+1&0&\cdots&0\\
+0&1&\cdots&0\\
+\vdots & \vdots& & \vdots \\
+0&0&\cdots&1\\
+\end{pmatrix}
+\end{align*}
+\item[v)] $det(Q)^2 = det(Q)\, det(Q) = det(Q^T)\, det(Q) = det(Q^TQ) = det(I)=1$
+\item[vi)]
+\begin{align*}
+\langle Q_1Q_2x, Q_1Q_2y \rangle &= (Q_1Q_2x)^HQ_1Q_2y  = x^H Q_2^HQ_1^HQ_1Q_2y \\
+&= x^HQ_2^HI_nQ_2y =x^HI_ny =x^Hy
+\end{align*}
+\end{itemize}
+\item[3.11]
+Given a linearly independent set $\mathbf{X}$, the Graham Schmidt process produces a new set $\mathbf{Q}$ that is orthonormal in the same vector space $\mathbf{V}$ and with respect to the same inner product that constitutes linear independence of $\mathbf{X}$. $q_1$, the first element of Q is simply the first element of $\mathbf{X}$, $x_1$ divided by its norm so. If $\mathbf{V}={\rm I\!R}$, $q_1$ has unit lengthy and points in the same direction as $x_1$. Staying in this example case, next elements of $\mathbf{Q}$, $q_k$ are defined as the difference of $x_k$ and its projection of the first $k-1$ elements of $\mathbf{Q}$, such that $q_k$ will be orthogonal to the first $(k-1)$ $q$'s, similar like the residual of a least squares regression being orthogonal to the regressors. Put differently, $q_k$ adds a new direction to the set of the first $(k-1)$ $q$'s.
+\item[3.16)]
+i) We have $A=QR$ and suppose that $D=-I$ with $D=D^{-1}$ such that $A=\underbrace{QD}_{Q_{neg}}\underbrace{D^{-1}R}_{R_{neg}} = Q_{neg}R_{neg}$ where  the subscript $neg$ indicates that the diagonal of these matrices has been multiplied by $-1$ while all off-diagonal elements are the same as in the original matrices $Q$ and  $R$. The QR-decomposition yields unique results up to the sign of the diagonal.
+
+ii)Suppose there exist two QR decompositinso $A=Q_1R_1=Q_2R_2$ such with positive diagonal elements of $R_1$ and $R_2$ then 
+\begin{align*}
+Q_1R_1=&\,Q_2R_2\\
+Q_2^{-1}Q_1R_1=&\,R_2\\
+Q_2^{-1}Q_1=&\,R_1^{-1}R_2\\
+\end{align*}
+so $X=R_1^{-1}R_2$ must be an orthonormal matrix because the product of two orthonormal matrices is also orthonormal. Moreover, it must be upper triangular because the product of two upper triangular matrices is also upper triangular. Let $x_1, x_2, ... x_n$ be the columns of that matrix. From orthonormality it follows that $x_i^Tx_j = 0 \quad \forall i\neq j$ and the last $n-i$ elements of $x_i$ are zero (upper triangular). For these properties to hold $X$ must be equal to the identity matrix $I$ this can be seen from the inner product of the of the first two columns:
+\begin{align*}
+x_1^Tx_{2} = \begin{pmatrix}
+x_{11} & 0 &\cdots& 0
+\end{pmatrix}
+\begin{pmatrix}
+x_{12} \\ x_{22} \\ 0 \\\vdots \\ 0
+\end{pmatrix}
+=x_{11}x_{12} + x_{22}0 =0 \quad \iff x_{12} = 0 
+\end{align*}
+Given $x_{12} = 0 $ it follows that $x_{13} = x_{23} = 0$ and because of the triangularity of $X$ this holds for all following inner products, hence $X=I$ and so  $I=R_1^{-1}R_2 \Leftrightarrow R_1 = R_2 \Rightarrow Q_1=Q_2$.
+\item[3.17)]
+\begin{align*}
+A^HAx=&\,A^Hb\\
+(\hat{Q}\hat{R})^H\hat{Q}\hat{R}x=&\,(\hat{Q}\hat{R})^Hb\\
+\hat{R}^H\underbrace{\hat{Q}^H\hat{Q}}_{I_n}\hat{R}x = &\,\hat{R}^H \hat{Q}^H b\\
+\hat{R}^H \hat{R}x =&\, \hat{R^H} \hat{Q}^Hb\\
+\hat{R}x = &\, \hat{Q}^Hb
+\end{align*}
+\item[3.23)]
+\begin{align*}
+||x-y||^2 =& ||x||^2 - \langle x, y \rangle - \langle 1\, y, x\rangle +||y||^2 \\
+=& \,  ||x||^2 - \langle x, y \rangle - \langle x, y\rangle +||y||^2 \\
+=& \, ||x||^2 - (\langle x, y\rangle +\overline{\langle x, y\rangle} ) +||y||^2 \\ 
+\geq &\,  ||x||^2 - 2|\langle x, y\rangle| +||y||^2 \quad \text{(by definion of an inner product)}\\  
+\geq & \, ||x||^2 - 2||x||\, ||y|| +||y||^2 \quad \text{(by the Cauchy-Schwartz Inequality)}\\
+\geq & \,\left( ||x|| - ||y|| \right)^2 = \left( ||y|| - ||x|| \right)^2 \\
+\text{and hence} \quad ||x-y|| \geq& \, ||x|| - ||y|| =||y|| - ||x||  
+\end{align*}
+\item[3.24)]
+For (i), (ii) and (iii)  to be norms they have to fulfill a) positivity, b) scale preservation and the c) triangle inequality.
+\begin{itemize}
+\item[(i)] a) $ \int_a^b |f(t)| \, dt$  obviously satisfies positivity because of the absolute value.\\
+
+b) $ \int_a^b |af(t)| \, dt= \int_a^b |a|\, |f(t)| \, dt = |a|\int_a^b |f(t)| \, dt$ \\
+
+c)
+\begin{align*}
+||f+g||_{L1} \leq & \, ||f||_{L1} + ||g||_{L1}\\
+\int_a^b |f(t)+g(t)| \, dt \leq& \int_a^b |f(t)| \, dt + \int_a^b |g(t)| \, dt = \int_a^b |f(t)|+|g(t)| \, dt \\
+\Leftrightarrow \quad |f+g| \leq& |f| + |g| \quad \text{which is the actual triangle inequality}
+\end{align*}
+\item[(ii) ]a) is obviously given by the absolite value and the square inside the integral.
+b) scale prevservation is given by homogeneity of degree one of $||\cdot||_{L2}$.
+c) Similar to ii) c)
+\begin{align*}
+||f+g||_{L2} \leq & \, ||f||_{L1} + ||g||_{L2}\\
+\left( \int_a^b |f(t)+g(t)|^2 \, dt \right)^{\frac{1}{2}} \leq& \left( \int_a^b |f(t)|^2 \, dt\right)^{\frac{1}{2}} + \left(\int_a^b |g(t)|^2 \, dt \right)^{\frac{1}{2}}\\
+=& \int_a^b |f(t)|+|g(t)| \, dt \\
+\Leftrightarrow \quad |f+g| \leq& |f| + |g| \quad \text{which is the actual triangle inequality}
+\end{align*}
+\item[(iii)]
+a)
+\begin{align*}
+\| f(x) \|_{L^{\infty}}= \sup_{x \in [a, b]}| f(x)| =& 0 \\
+| f(x)| =& 0 \quad \Rightarrow\quad \text{iff} \quad  f(x) =0  
+\end{align*} 
+b) \begin{align*}
+\| f(x) \|_{L^{\infty}}= \sup_{x \in [a, b]}|a f(x)| = \sup_{x \in [a, b]}|a|\,| f(x)| = |a|\, \sup_{x \in [a, b]}| f(x)| = |a|\, \| f(x) \|_{L^{\infty}}
+\end{align*}
+c) 
+\begin{align*}
+\| f(x)+g(x) \|_{L^{\infty}}=& \sup_{x \in [a, b]}(| f(x)+g(x)| )\\
+\leq & \sup_{x \in [a, b]}(| f(x)|+|g(x)| )\\
+\leq & \sup_{x \in [a, b]}| f(x)| +\sup_{x \in [a, b]}|g(x)| \\
+\leq& \| f(x)\|_{L^{\infty}} +\| g(x) \|_{L^{\infty}}
+\end{align*}
+\end{itemize}
+\item[3.26]
+i) $||x||_2^2 = \sum^n |x_i|^2 \leq \left( \sum^n |x_i|\right) ^2 = |||x||^2_1 \Rightarrow||x||_2^2 \leq ||x||_1^2 $.To show the second inequality suppose that $\mathbf{1}$ be a vector of only ones such that $ ||x||_1 = |\langle \mathbf{1}, x \rangle| \leq ||\mathbf{1}||_2||\,|x||_2=\sqrt{\sum^n \, 1}||x||_2 = \sqrt{n}\, ||x||_2$ \\
+
+ii) To show the left inequality let $|x_1| = max(x)$ then $ ||x||_2^2 = \sum^n |x_i|^2  \geq |x_1|^2 = ||x||_{\infty}^2 \Rightarrow ||x||_{\infty} \leq ||x||_2$. For the right inequality suppose, again, that $x_k$ be the greatest element in $x$ such that $||x||_{\infty} = x_k $. Then consider $||x||_2 = \sqrt{\sum x_i^2} \leq \sqrt{\sum x_k^2}= \sqrt{ n x_k^2}   = \sqrt{n} x_k =\sqrt{n} ||x||_{\infty} $
+
+\item[3.30]
+Let $||A||_S = ||SAS^{-1}||$. To show that this is a norm we show the tree properties of a norm hold.
+a)positivity: $sign(||A||_S) = sign(||SAS^{-1}||)=+$ because $||\cdot||$ is a norm.\\
+
+b)homogeneity: $||aA||_S = ||SaAS^{-1}|| = |a|\, ||SAS^{-1}|| $\\
+
+c)triangle inequality: $||A+B||_S = ||S(A+B)S^{-1}||= ||(SA+SB)S^{-1}|| = 
+||(SAS^{-1} + SBS^{-1}|| \leq ||(SAS^{-1}|| + ||SBS^{-1}||$ because the triangle inequality holds for the norm $||\cdot|| \Rightarrow ||A+B||_S \leq||A||_S +||B||_S $
+
+\item[3.38]
+\begin{align*}
+\begin{pmatrix}
+0 \\1 \\ 2x
+\end{pmatrix}=D(p)\begin{pmatrix}
+1\\x \\ x^2
+\end{pmatrix} \Rightarrow D(p)=\begin{pmatrix}
+0 & 0 &0\\ 1&0 &0 \\0& 2&0
+\end{pmatrix}
+\end{align*}
+\item[3.40]
+i) The \textit{Frobenius inner product} is definded as $ \langle A,B \rangle = tr(A^HB)$ and for the adjoint of A $A^*$ is defined by $\langle B,AC \rangle   = tr(B^HAC) = tr((A^*B)^HC) = \langle A^*B,C \rangle $. From $= tr(B^HAC) = tr((A^*B)^HC)$ it follows that $A=(A^*)^H $ and taking the Hermetian conjugate on both sides yields $A^H=A^* $
+
+ii)
+
+$\langle A_2, A_3 A_1\rangle = tr(A_2^HA_3A_1) = tr(A_2^HA_1A_3) = \langle A_2, A_1 A_3\rangle$
+Furthermore, by the definition of the adjoint of $A_1$ we have $\langle A_2, A_1 A_3\rangle = \langle A_1^*A_2, A_3\rangle = tr((A_1^*A_2)^H A_3) = tr((A_2A_1^*)^H A_3) = \langle A_2A_1^*,A_3 \rangle$
+
+iii)
+From the definition of the adjoint we know that $\langle Y, T_A(X) \rangle = \langle T_A^*(Y), X \rangle$ . It remains to show that $ \langle Y, T_A(X) \rangle = \langle T_{A*}(Y), X\rangle$:
+\begin{align*}
+\langle Y, T_A(X) \rangle  =&\, \langle Y, AX-XA\rangle\\
+=& \, \langle Y, AX \rangle - \langle Y, XA \rangle\\
+=&\, \langle A^*Y, X \rangle - \langle YA^*, X\rangle\\
+=&\, \langle A^*Y-YA^*, X\rangle\\
+=&\, \langle T_{A^*}(Y), X \rangle
+\end{align*}
+Hence, $\langle T_A^*(Y), X \rangle = \langle T_{A^*}(Y), X \rangle \iff T_A^* = T_{A^*}$ 
+\item[3.44]
+Suppose that  $y \in \mathbf{N}(A^H)$ then , by the findamental theorem of sub spaces we have $y \in \mathbf{R}(A)^{\perp}$. Furthermore, suppose that $b \not\in   \mathbf{R}(A)$. Then $y$  and $x$  are not orthogonal and hence $\langle y, b\rangle  \neq 0$
+\item[3.46]
+i) $x \in \mathbf{N}(A^HA)$ implies that $A^HAx=0$ from there it follows that $Ax$ is also in $\mathbf{N}(A^H)$\\
+
+ii) From part i) we know that $Ax \in \mathbf{N}(A^H)$ and  $Ax \in \mathbf{R}(A)$. From the fundamental theorem of sub-spaces it follows that  $ \mathbf{N}(A^H) =  \mathbf{R}(A)^{\bot}$. Hence, $\mathbf{R}(A)$ and $ \mathbf{N}(A^H) $ are orthogonal and do not share any common elemetns except for $\{0\}$. Therefore $Ax=0$ or $x \in \mathbf{N}(A)$. Starting from the left hand side we get the following: $ x \in \mathbf{N}(A) \Rightarrow  Ax=0$. Premultiplying by $A^H$ gives $A^HAx=0 \Rightarrow x \in \mathbf{N}(A^HA)$  
+
+iii) Since $A^H$ and $A$ have the same rank and matrix multiplication is apurely linear operation that does not change linear (in)dependence of columns or rows, the matrix product of the two $A^HA$ must have the same rank as $A^H$ and $A$.
+
+iv) If  $rank(A) = n = rank(A^HA)$ and since $A$ is of dimension $( m\times n)$ then $A^HA$ is $( n\times n)$ that is it has full rank and is invertible. Hence, it is nonsingular.
+\item[3.47]
+i) Show the first inequality $P^2 = A \underbrace{(A^HA)^{-1}A^HA }_{I_n}
+(A^HA)^{-1}A^H = A(A^HA)^{-1}A^H =P$.\\
+ii)$P^H = (A(A^HA)^{-1}A^H)^H = A \left[(A^HA)^{-1}\right]^HA^H = A \left[(A^HA)^{H}\right]^{-1}A^H = A(A^HA)^{-1}A^H = P$ \\
+iii) $rank(A)=n$ and consists of linear combination of the columns and rows of $A$ so the rank must be the same.
+
+\item[3.48]
+i) Let $c$ be constant then $P(cA) = \frac{cA + cA^T}{2} = \frac{c(a+A^T)}{s} = cP(A)$
+Furthermore, $P(A+B) = \frac{A+B(A+B)^T}{2} = \frac{A+B+A^T+B^T}{2} = P(A) + P(B)$  so $P$ is linear.
+
+ii)$P(A)^2  = P(P(A)) = \frac{P(A)+P(A)^T}{2} =\frac{\frac{A+A^T}{2}+\frac{A+A^T}{2}}{2}  = \frac{A+A^T + (A+A^T)^T}{4}= \frac{2A^+2A^T}{4} =\frac{A+A^T}{2} = P(A) $
+
+iii)IFrom the definition of the adjoint withh respect to the Frobenius inner product we know that $\langle A, P(B) \rangle = \langle P^*(A), B \rangle $. So $P(A) = P^*(A) \iff \langle A, P(B) \rangle = \langle P(A), B \rangle$.
+\begin{align*}
+\langle A, P(B) \rangle  =&\, \langle A, \frac{B+B^T}{2} \rangle \\
+=&\, tr(\frac{1}{2}A^T(B+BT)))\\
+=&\, \frac{1}{2}tr(A^TB+A^TB^T) \\
+= &\, \frac{1}{2} (tr(A^TB) +tr(B^TA^T
+)\\
+=&\, \frac{1}{2}(tr((A^TB)^T)+tr(B^TA^T))\\
+=&\, \frac{1}{2}(tr(BA^T)+tr(B^TA^T))\\
+=&\, \frac{1}{2}(tr(A^TB^T+AB^T))\\
+=&\,\frac{1}{2} tr(B^T(A+A^T))\\
+=&\, \frac{1}{2} tr((A+A^T)^TB)\\
+=&\, \langle  \frac{A+A^T}{2},B \rangle\\
+=&\, \langle P(A) , B \rangle =  \langle P^*(A), B \rangle \quad \text{(by definition of adjoint)}\\
+\Leftrightarrow &\, P(A) = P^*(A)
+\end{align*}
+iv)
+v)
+vi)
+\item[3.50] Suppose $r$ and $s$ are scalars and $y$ and $x$ are$n\times 1 $ containing all the data. Be $\mathbf{1}$ a $ n\times 1$ vector of only ones. Moreover, then let $x^2$ and $y^2$ denote the element-wise square, then 
+\begin{align*}
+ sy^2+rx^2=&\, \mathbf{1}\\
+ y^2 =&\,  \frac{1}{s}\mathbf{1} -\frac{r}{s}x^2\\
+ \underbrace{y^2}_b =&\, \underbrace{\begin{pmatrix}
+\mathbf{1}& x^2
+\end{pmatrix}}_A
+\underbrace{\begin{pmatrix}
+\frac{1}{s} \\ -\frac{r}{s}
+\end{pmatrix}}_c \quad \text{(changing notation)}\\
+b=&\, Ac \\
+\end{align*}
+And the normal equations of such a system are given by $A^HA\hat{c}=A^Hb$ where $\hat{c}$ is the least squares solution of the system. Since $x$ and $y$ are real the normal equations in this case are:
+\begin{align*}
+A^TA\hat{c}=&A^Tb \\
+\begin{bmatrix}
+1 & x^2 \\ x^2 & x^4
+\end{bmatrix} \hat{c} =& \, \begin{pmatrix}
+\mathbf{1}^T \\ (x^2)^T
+\end{pmatrix} y^2
+\end{align*}
+\end{enumerate}
 
 \end{document}

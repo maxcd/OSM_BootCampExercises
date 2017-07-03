@@ -1,0 +1,100 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{\footnotesize\textsl{OSM Lab, Summer 2017, Econ PS \#2}}
+\cfoot{}
+\rfoot{\footnotesize\textsl{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue,citecolor=red}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{derivation}{Derivation} % Number derivations on their own
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition} % Number propositions on their own
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+%\numberwithin{equation}{section}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\newcommand\boldline{\arrayrulewidth{1pt}\hline}
+
+\begin{document}
+
+\begin{flushleft}
+   \textbf{\large{Econ, Problem Set \#2, Dynamic Programming}} \\[5pt] John Stachurski\\[5pt]
+
+\end{flushleft}
+\textbf{Proofs accompanying the Jupyter Notebooks} \\
+
+Notebook 1), Exercise 2)\\
+
+For $x ,y \in \mathbf{R}_+ $ show that $\| \max \left\{ \beta,\, x \right\} - \max \left\{ \beta,\, y\right\} \|\leq \| x - y \|$
+   is a contraction mapping.
+\begin{align*}
+\| &\max \left\{ \beta,\, x \right\} - \max \left\{ \beta,\, y \right\}\|\\
+ =& \| \, c(1- \beta) +\beta \sum_{k=1}^K 
+\max \left\{ w_k,\, x \right\}\, p_k \\
+&\quad - c(1- \beta) - \beta \sum_{k=1}^K 
+\max \left\{ w_k,\, y \right\}\, p_k \| \\
+=& \| \,  \beta \sum_{k=1}^K 
+\max \left\{ w_k,\, x \right\}\, p_k  - \beta \sum_{k=1}^K 
+\max \left\{ w_k,\, y \right\}\, p_k \| \\
+=&\| \, \beta \left( \sum_{k=1}^K 
+\max \left\{ w_k,\, x \right\} \, p_k -
+\max \left\{ w_k,\, y \right\} \, p_k \right) \| \\
+\leq& \beta \sum_{k=1}^K \|\max \left\{ w_k,\, x \right\} \, p_k - \max \left\{ w_k,\, y \right\} \, p_k \| \\
+\leq &\beta \sum_{k=1}^K \, p_k \|x-y\| \\
+\leq& \beta  \|x-y\|\sum_{k=1}^K \, p_k\\
+\| \max \left\{ \beta,\, x \right\} - \max \left\{ \beta,\, y \right\} 
+\|\leq& \beta  \|x-y\|
+\end{align*}
+\vspace*{.5cm}
+
+Notebook 2), Exercise 1) \\
+
+Show $\forall y \in \mathbf{R}_+$ and $ 1>b>0$ that $\| Uw(y) - Uw'(y)\|_{sup} \leq \| w(y) - w'(y) \|_{sup}$ :
+\begin{align*}
+\| Uw(y) - Uw'(y)\| =&\| u(\sigma(y)) + \beta \int w(f(y - \sigma(y))z) \phi(dz) \\
+ &- u(\sigma(y)) - \beta \int w'(f(y - \sigma(y))z) \phi(dz)\| \\
+=&\beta \| \int w(f(y - \sigma(y))z) \phi(dz)-  \int w'(f(y - \sigma(y))z) \phi(dz) \| \\
+=& \beta \| \int \left[w(f(y - \sigma(y))z) - w'(f(y - \sigma(y))z) \right]\phi(dz) \| \\
+\leq & \beta \| \int \left[w(f(y - \sigma(y))z) - w'(f(y - \sigma(y))z) \right]\phi(dz) \|_{sup} \\
+\leq & \beta \| \left[w(f(y - \sigma(y))z) - w'(f(y - \sigma(y))z) \right]\|_{sup}\underbrace{\int \phi(dz)}_{=1} \\
+\leq & \beta \| w(y) - w'(y)  \|_{sup}
+\end{align*}
+so $\qquad \| Uw(y) - Uw'(y)\|_{sup} \leq  \beta \| w(y) - w'(y) \|_{sup}$
+
+\end{document}
