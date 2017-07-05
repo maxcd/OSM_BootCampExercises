@@ -328,6 +328,9 @@ From the definition of the adjoint we know that $\langle Y, T_A(X) \rangle = \la
 Hence, $\langle T_A^*(Y), X \rangle = \langle T_{A^*}(Y), X \rangle \iff T_A^* = T_{A^*}$ 
 \item[3.44]
 Suppose that  $y \in \mathbf{N}(A^H)$ then , by the findamental theorem of sub spaces we have $y \in \mathbf{R}(A)^{\perp}$. Furthermore, suppose that $b \not\in   \mathbf{R}(A)$. Then $y$  and $x$  are not orthogonal and hence $\langle y, b\rangle  \neq 0$
+
+\item[3.45]
+Let $X=A+A^T$ such that$X^T=(A+A^T)^T=X=A+A^T=X$ so $ X \in Sym(\mathbb{R})$ and $Y=B-B^T$ such that $YT^=(B-B^T)^T=B^T-B=-Y$  so $Y \in Skew(\mathbb{R})$ then $\langle X, Y \rangle = tr(X^TY)= tr\left((A+A^T)(B-B^T) \right) =tr(AB-AB^T+A^TB-A^TB^T)=0 $
 \item[3.46]
 i) $x \in \mathbf{N}(A^HA)$ implies that $A^HAx=0$ from there it follows that $Ax$ is also in $\mathbf{N}(A^H)$\\
 
@@ -364,8 +367,10 @@ iii)IFrom the definition of the adjoint withh respect to the Frobenius inner pro
 =&\, \langle P(A) , B \rangle =  \langle P^*(A), B \rangle \quad \text{(by definition of adjoint)}\\
 \Leftrightarrow &\, P(A) = P^*(A)
 \end{align*}
-iv)
-v)
+iv) Let $B \in Skew(\mathbb{R})$ such that $B^T=-B$ then $\mathbf{N}(P) = Skew(\mathbb{R}$ iff $P(B)^T=0$. $P(B)^T=(\frac{B+B^T}{2})^T=\frac{B^T-B}{2}=0$
+
+v)Let $C \in Sym(\mathbb{R})$ that is $C^T=C$ then $\mathbf{R}(P) = Sym(\mathbb{R}$ iff $P(C)^T=P(C)$. $P(C)^T=\frac{(C+C^T)^T}{2}^T=\frac{C^T+C}{2}=P(C)$
+
 vi)
 \item[3.50] Suppose $r$ and $s$ are scalars and $y$ and $x$ are$n\times 1 $ containing all the data. Be $\mathbf{1}$ a $ n\times 1$ vector of only ones. Moreover, then let $x^2$ and $y^2$ denote the element-wise square, then 
 \begin{align*}
