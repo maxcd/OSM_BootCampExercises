@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import time
 from numba import jit
-
+from scipy.optimize import fminbound, root
 # imports for Ada Cooper
 from scipy.stats import norm
 import scipy.integrate as integrate
@@ -82,6 +82,9 @@ class firms_model(object):
         # self.Vmat = np.zeros((self.sizek, self.sizek, self.N))
         # self.V = np.zeros((self.sizek, self.N))
 
+    def update_wage(self, new_wage):
+        self.w = new_wage
+
     def make_z(self):
         #N, mu, sigma_z, rho, sigma_eps = self.N, self.mu, self.sigma_z, self.rho, self.sigma_eps
         z = np.empty(self.draws)
@@ -128,10 +131,11 @@ class firms_model(object):
         ub_k = kbar
         krat = np.log(lb_k / ub_k)
         numb = np.ceil(krat / np.log(1 - delta))
+
         K = np.zeros(int(numb * dens))
         # we'll create in a way where we pin down the upper bound - since
         # the distance will be small near the lower bound, we'll miss that by little
-        for j in range(int(numb * dens)):
+        for j in range(len(K)):
             K[j] = ub_k * (1 - delta) ** (j / dens)
         kvec = K[::-1]
         sizek = kvec.shape[0]
@@ -152,6 +156,7 @@ class firms_model(object):
         return total_cost
 
     def make_flows(self):
+        #e = get_flows_outside(self.z_grid, self.sizek, self.sizek, self.N)
         e = np.zeros((self.sizek, self.sizek, self.N))
         for k in range(self.N):
             z = self.z_grid[k]
@@ -185,7 +190,7 @@ class firms_model(object):
 
         return Vmat
 
-    def VFI(self, VFmaxiter=3000, VFtol=1e-6, plot_result=True):
+    def VFI(self, VFmaxiter=3000, VFtol=1e-6, plot_result=True, message=True):
         Pol_Fun = np.ones((self.N, self.sizek), dtype=int)
         total_start_time = time.clock()
         #for k in range(len(z_shocks)):
@@ -207,15 +212,16 @@ class firms_model(object):
             VFdist = (np.absolute(V - TV)).max()
             VFiter += 1
 
-        if VFiter < VFmaxiter:
-            print('\nValue function converged after', VFiter, 'iterations')
-            #print('VFI took ', VFI_time, ' seconds to solve')
-        else:
-            print('Value function did not converge')
+            time_elapsed = time.clock() - total_start_time
+
+        if message:
+            if VFiter < VFmaxiter:
+                print('\nValue function converged after', VFiter, 'iterations')
+                print('\ntotal time elapsed:', time_elapsed, 'seconds')
+            else:
+                print('Value function did not converge')
 
         Pol_Fun = np.argmax(Vmat, axis=1)
-        time_elapsed = time.clock() - total_start_time
-        print('\ntotal time elapsed:', time_elapsed, 'seconds')
 
         self.V = V
         self.Pol_Fun = Pol_Fun
@@ -231,6 +237,7 @@ class firms_model(object):
             lb = 'z={}'.format(np.around(self.z_grid[k], 2))
             ax.plot(self.kvec, optK, '--', color=plt.cm.jet(k / self.N), lw=2, alpha=0.8, label=lb)
         ax.plot(self.kvec, self.kvec, 'k:', label='45 degree line')
+        ax.plot(self.kvec, self.kvec * (1-self.delta),  'k*', label='$(1-\delta)$', alpha=0.8)
         # Now add the legend with some customizations.
         legend = ax.legend(bbox_to_anchor=(1.0, 1.05))
         # The frame is matplotlib.patches.Rectangle instance surrounding the legend.
@@ -264,7 +271,7 @@ class firms_model(object):
         self.make_z()
         self.make_k()
         self.make_flows()
-        self.VFI(plot_result=False)
+        self.VFI(plot_result=False, message=False)
         self.make_opt_k()
 
     def make_labor_d(self):
@@ -291,7 +298,7 @@ class firms_model(object):
         HGamma = get_Gamma_outside(Gamma, HGamma, sizek, sizez, Pol_Fun, Pi)
         return HGamma
 
-    def solve_dist(self, Dtol = 1e-12, Dmaxiter=1000):
+    def solve_dist(self, Dtol = 1e-12, Dmaxiter=1000, message=True):
         Pi, Pol_Fun, sizek = self.pi, self.Pol_Fun.T, self.sizek
         sizez, z, kvec = self.N, self.z_grid, self.kvec
 
@@ -325,10 +332,11 @@ class firms_model(object):
             Gamma = HGamma
             Diters += 1
 
-        if Diters < Dmaxiter:
-            print('\nfirms distribution converged after', Diters,'iterations: ')
-        else:
-            print('\nfirms distribution did not converge')
+        if message:
+            if Diters < Dmaxiter:
+                print('\nfirms distribution converged after', Diters,'iterations: ')
+            else:
+                print('\nfirms distribution did not converge')
 
         ''' firms_dist[i, k] where i is the productivity shocks
             and k is the size of the capital stock
@@ -358,7 +366,63 @@ class firms_model(object):
         C_bar = self.Y_bar - self.I_bar - self.Psi_bar
         self.C_bar = C_bar
 
-        return self.L_d_bar, self.I_bar, self.Psi_bar, self.Y_bar, self.C_bar
+        L_s = self.w / (self.h * self.C_bar)
+
+        self.L_s_bar = L_s
+
+        return self.L_d_bar, self.L_s_bar, self.I_bar, self.Psi_bar, self.Y_bar, self.C_bar
 
     def make_labor_s(self):
-        pass
+
+        L_s = self.w / (self.h * self.C_bar)
+
+        self.L_s_bar = L_s
+        return L_s
+
+    def check_L_clearing(self, w=None):
+        if w is None:
+            w = self.w
+
+        self.update_wage(w)
+        #self.make_k()
+        self.make_flows()
+        self.VFI(plot_result=False, message=False)
+        self.make_opt_k()
+        self.make_labor_d()
+        self.make_inv_d
+        self.solve_dist(message=False)
+        self.aggregate()
+
+        diff = self.L_s_bar - self.L_d_bar
+        return diff
+
+    def get_SS(self):
+        result = root(self.check_L_clearing, self.w, tol=1e-5)
+        w = result.x[0]
+        self.update_wage(w)
+        return result
+
+    def plot_dist(self):
+        fig, ax = plt.subplots( figsize=(12,4))
+        ax.plot(self.kvec, self.firms_dist.sum(axis=0))
+        ax.set_xlabel('Size of Capital Stock')
+        ax.set_ylabel('Density')
+        #axes[0].suptitle('Stationary Distribution over Capital')
+
+        #axes[1].plot(np.log(self.z_grid), self.firms_dist.sum(axis=1))
+        #axes[1].set_xlabel('Log Productivity')
+        #axes[1].set_ylabel('Density')
+
+        plt.suptitle('Stationary Distribution of Firms')
+        plt.show()
+
+# model = firms_model()
+# model.make_z()
+# model.make_k()
+# model.make_flows()
+# model.check_L_clearing()
+# results = model.get_SS()
+# model.check_L_clearing()
+# model.plot_dist()
+#1.05969465
+#result = fminbound(model.check_L_clearing, 0, 3, xtol=1e-6, maxfun=30, full_output=True, disp=3)
